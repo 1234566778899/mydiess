@@ -10,8 +10,7 @@ export const site = {
   tagline: 'Su historia de amor, en un solo lugar.',
   description:
     'MyDiess es la app para parejas donde guardan sus recuerdos, días especiales, notas de amor y estados de ánimo, y dibujan juntos en tiempo real.',
-  /** PENDIENTE: dominio definitivo donde se publique el sitio. */
-  url: 'https://mydiess.app',
+  url: 'https://mydiess.vercel.app',
   /** PENDIENTE: enlace de la app en App Store (se obtiene al publicarla). */
   appStoreUrl: '#descargar',
   /** PENDIENTE: correo real que se revise para soporte. */

@@ -37,8 +37,9 @@ seguridad y caché de imágenes), así que no hay que configurar nada a mano:
 3. Deja **Root Directory** en `./` y las opciones que detecta solas
    (Framework: Astro · Build: `astro build` · Output: `dist`).
 4. **Deploy**.
-5. Al conectar el dominio definitivo, actualiza `site` en
-   `astro.config.mjs` y `url` en `src/config/site.ts`.
+5. Publicado en **https://mydiess.vercel.app**. Si conectas un dominio
+   propio, actualiza `site` en `astro.config.mjs` y `url` en
+   `src/config/site.ts`.
 
 Cada push a `main` publica una versión nueva.
 
@@ -47,7 +48,6 @@ Cada push a `main` publica una versión nueva.
 Los valores reales no se inventaron. Edita **`src/config/site.ts`** y
 reemplaza todo lo marcado con `PENDIENTE`:
 
-- `url` — dominio definitivo del sitio.
 - `appStoreUrl` — enlace de la app (existe al publicarla en App Store).
 - `supportEmail` y `privacyEmail` — correos reales que alguien revise.
 - `legalName` — nombre legal de la persona o empresa responsable.
