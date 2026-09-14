@@ -1,0 +1,168 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../config/site';
+---
+
+<LegalLayout
+  title="Política de privacidad"
+  description={`Cómo ${site.name} recopila, usa y protege tu información.`}
+>
+  <p class="body-lg">
+    En {site.name} lo que compartes con tu pareja es de ustedes. Esta política explica qué información recopilamos,
+    para qué la usamos, con quién la compartimos y cómo puedes controlarla.
+  </p>
+
+  <div class="callout">
+    <strong>En resumen:</strong> solo pedimos lo necesario para que la app funcione; lo que guardas solo lo pueden
+    ver tú y tu pareja; no mostramos anuncios, no vendemos tus datos y no te rastreamos entre apps o sitios web.
+  </div>
+
+  <h2>1. Responsable</h2>
+  <p>
+    El responsable del tratamiento de tus datos es {site.legalName} (“{site.name}”, “nosotros”). Para cualquier
+    duda sobre privacidad escríbenos a <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a>.
+  </p>
+
+  <h2>2. Información que recopilamos</h2>
+
+  <h3>Información de tu cuenta</h3>
+  <ul>
+    <li><strong>Nombre y correo electrónico</strong>, y la contraseña que eliges (se guarda cifrada; nunca la vemos).</li>
+    <li>Si usas <strong>Iniciar sesión con Apple</strong>, recibimos el identificador que Apple nos proporciona y, si lo
+      autorizas, tu nombre y correo (que pueden ser un correo privado de reenvío de Apple).</li>
+    <li><strong>Foto de perfil</strong>, si decides agregar una.</li>
+  </ul>
+
+  <h3>Contenido que creas y compartes con tu pareja</h3>
+  <ul>
+    <li>Recuerdos del diario: título, notas, fecha, hora, fotos y, si lo agregas, el lugar.</li>
+    <li>Días especiales: título, fecha, emoji, color y si se repiten cada año.</li>
+    <li>Notas de amor (texto, foto o garabato) y toques de amor.</li>
+    <li>Estado de ánimo y su nota opcional.</li>
+    <li>Historias diarias (fotos con texto opcional), que dejan de mostrarse a las 24 horas.</li>
+    <li>Datos de la pareja: código de invitación, fecha de aniversario y tipo de relación.</li>
+  </ul>
+
+  <h3>Garabato en vivo</h3>
+  <p>
+    Los trazos del garabato se transmiten en tiempo real entre tu dispositivo y el de tu pareja mientras ambos
+    tienen la pantalla abierta. <strong>No los guardamos en nuestra base de datos.</strong> Si guardas el dibujo en
+    Fotos, se queda solo en tu iPhone.
+  </p>
+
+  <h3>Ubicación</h3>
+  <p>
+    La ubicación es <strong>opcional</strong>. Si la permites, la usamos solo mientras usas la app para centrar el
+    mapa y para guardar dónde ocurrió un recuerdo cuando tú lo eliges. Guardamos las coordenadas, la ciudad y el
+    país de ese recuerdo. No rastreamos tu ubicación en segundo plano.
+  </p>
+
+  <h3>Información técnica</h3>
+  <ul>
+    <li><strong>Token de notificaciones</strong> de tu dispositivo, para enviarte avisos cuando tu pareja te envía
+      algo (solo si permites las notificaciones).</li>
+    <li><strong>Fechas de uso</strong> para calcular tu racha de días consecutivos.</li>
+    <li>Registros técnicos que generan nuestros proveedores de infraestructura (por ejemplo, fecha y dirección IP de
+      las solicitudes) para operar y proteger el servicio.</li>
+  </ul>
+
+  <h3>Permisos de tu iPhone</h3>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Permiso</th><th>Para qué se usa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Fotos</td><td>Elegir fotos para recuerdos, notas, historias, tu perfil o el fondo del garabato, y guardar imágenes en tu galería.</td></tr>
+        <tr><td>Cámara</td><td>Tomar fotos para tus historias.</td></tr>
+        <tr><td>Micrófono</td><td>Grabar el sonido de tus historias.</td></tr>
+        <tr><td>Ubicación (al usar la app)</td><td>Guardar dónde ocurrió un recuerdo y centrar el mapa.</td></tr>
+        <tr><td>Notificaciones</td><td>Avisarte de notas, toques, cambios de ánimo y conexión con tu pareja.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Puedes conceder o quitar cualquiera de estos permisos en <strong>Ajustes de iOS</strong> en cualquier momento.</p>
+
+  <h2>3. Cómo usamos tu información</h2>
+  <ul>
+    <li>Crear y mantener tu cuenta y conectarte con tu pareja.</li>
+    <li>Mostrarte a ti y a tu pareja el contenido que comparten.</li>
+    <li>Enviarte notificaciones sobre la actividad de tu pareja.</li>
+    <li>Mostrar tus estadísticas, tu racha y los datos de tus widgets.</li>
+    <li>Responder a tus solicitudes de soporte.</li>
+    <li>Mantener la seguridad del servicio y prevenir abusos.</li>
+  </ul>
+  <p>
+    <strong>No usamos tu información para publicidad</strong>, no la vendemos, no creamos perfiles para terceros y no
+    te rastreamos en apps o sitios de otras empresas.
+  </p>
+
+  <h2>4. Quién puede ver tu información</h2>
+  <p>
+    El contenido de la pareja solo es visible para las dos personas que la forman. Nuestra base de datos aplica
+    reglas de acceso para que ninguna otra cuenta pueda leerlo. Si terminas la relación desde la app, el contenido
+    compartido se vuelve privado y tu pareja deja de verlo.
+  </p>
+
+  <h2>5. Proveedores con los que compartimos datos</h2>
+  <p>Usamos proveedores que procesan información en nuestro nombre, solo para prestar el servicio:</p>
+  <ul>
+    <li><strong>Supabase</strong>: base de datos, autenticación, almacenamiento de fotos, tiempo real y funciones del
+      servidor donde se guarda tu cuenta y tu contenido.</li>
+    <li><strong>Apple</strong>: Iniciar sesión con Apple, servicio de notificaciones push (APNs) y mapas (MapKit).</li>
+    <li><strong>Google Places</strong>: cuando buscas un lugar para un recuerdo, enviamos el texto que escribes y tu
+      ubicación aproximada para sugerir resultados.</li>
+  </ul>
+  <p>
+    También podemos divulgar información si la ley lo exige o para proteger los derechos, la seguridad o la
+    integridad de nuestros usuarios o del servicio.
+  </p>
+
+  <h2>6. Transferencias internacionales</h2>
+  <p>
+    Nuestros proveedores pueden almacenar o procesar datos fuera de tu país. En esos casos nos apoyamos en
+    proveedores que ofrecen garantías adecuadas de protección de datos.
+  </p>
+
+  <h2>7. Conservación</h2>
+  <ul>
+    <li>Tu cuenta y tu contenido se conservan mientras tu cuenta esté activa.</li>
+    <li>Las historias dejan de mostrarse a las 24 horas de publicarse.</li>
+    <li>Cuando eliminas un recuerdo, una foto o una nota, se borran de nuestros sistemas.</li>
+    <li>Cuando eliminas tu cuenta, borramos tus datos personales, salvo lo que debamos conservar por obligación legal.</li>
+  </ul>
+
+  <h2>8. Tus derechos</h2>
+  <p>
+    Puedes acceder, corregir, exportar o eliminar tu información, y oponerte a ciertos usos o retirar tu
+    consentimiento (derechos ARCO en México y equivalentes en otros países). Puedes editar tu nombre y tu foto desde
+    la app. Para cualquier otra solicitud escríbenos a <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a>;
+    te responderemos en un plazo máximo de 20 días hábiles.
+  </p>
+  <p>Para borrar tu cuenta, sigue los pasos de <a href="/eliminar-cuenta">Eliminar tu cuenta</a>.</p>
+
+  <h2>9. Seguridad</h2>
+  <p>
+    Protegemos tu información con cifrado en tránsito (HTTPS), contraseñas cifradas, reglas de acceso a nivel de base
+    de datos y almacenamiento privado de fotos. Ningún sistema es 100 % seguro, pero trabajamos continuamente para
+    proteger tus datos.
+  </p>
+
+  <h2>10. Menores de edad</h2>
+  <p>
+    {site.name} no está dirigida a menores de {site.minimumAge} años y no recopilamos a sabiendas información de
+    ellos. Si crees que un menor nos dio información, escríbenos y la eliminaremos.
+  </p>
+
+  <h2>11. Cambios a esta política</h2>
+  <p>
+    Podemos actualizar esta política. Si los cambios son importantes, te avisaremos en la app o por correo antes de
+    que entren en vigor. La fecha de la última actualización aparece al inicio de esta página.
+  </p>
+
+  <h2>12. Contacto</h2>
+  <p>
+    Privacidad: <a href={`mailto:${site.privacyEmail}`}>{site.privacyEmail}</a><br />
+    Soporte general: <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>
+  </p>
+</LegalLayout>

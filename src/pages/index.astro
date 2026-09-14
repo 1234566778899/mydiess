@@ -1,0 +1,655 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../config/site';
+
+const features = [
+  { icon: 'book', title: 'Diario de recuerdos', text: 'Fotos, notas y el lugar exacto de cada momento que vivieron juntos.' },
+  { icon: 'map', title: 'Mapa de amor', text: 'Todos los países y ciudades que han recorrido, en un mapa que crece con ustedes.' },
+  { icon: 'calendar', title: 'Días especiales', text: 'Aniversarios y fechas importantes con cuenta regresiva y colores propios.' },
+  { icon: 'envelope', title: 'Notas de amor', text: 'Mensajes con foto o garabato que llegan al instante a su Lovebox.' },
+  { icon: 'heart', title: 'Toques de amor', text: 'Un abrazo, un beso o un “te extraño” en un solo toque.' },
+  { icon: 'sparkles', title: 'Estado de ánimo', text: 'Compartan cómo se sienten y véanlo actualizarse en tiempo real.' },
+  { icon: 'camera', title: 'Historias diarias', text: 'Una foto del día que desaparece en 24 horas.' },
+  { icon: 'pencil', title: 'Garabato en vivo', text: 'Dibujen juntos en la misma pantalla, cada quien desde su iPhone.' },
+  { icon: 'widgets', title: 'Widgets', text: 'Días juntos, próximo día especial y estados de ánimo en tu pantalla de bloqueo.' },
+  { icon: 'flame', title: 'Racha y estadísticas', text: 'Días juntos, notas enviadas, lugares visitados y su racha diaria.' },
+  { icon: 'bell', title: 'Notificaciones', text: 'Entérate cuando tu pareja te envía algo o actualiza su ánimo.' },
+  { icon: 'lock', title: 'Privado por diseño', text: 'Lo que comparten solo lo pueden ver ustedes dos.' },
+];
+
+const footnotes = [
+  'La racha cuenta los días consecutivos en que abres la app.',
+  'El garabato en vivo requiere que ambas personas tengan la pantalla abierta y conexión a internet. Los dibujos no se guardan en nuestros servidores; puedes guardarlos en Fotos.',
+  'Los widgets requieren iOS 17 o posterior. Las notificaciones requieren que las permitas en tu iPhone.',
+];
+---
+
+<BaseLayout footnotes={footnotes}>
+  <!-- ───────────── Hero ───────────── -->
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-content">
+      <img class="hero-mascot" src="/brand/mascot.webp" alt="" width="1000" height="590" fetchpriority="high" />
+      <h1 class="hero-title">
+        Guarden cada recuerdo, compartan cada día<br class="br-lg" /> y dibujen juntos en tiempo real.
+      </h1>
+      <div class="btn-group center">
+        <a class="btn btn-light" href={site.appStoreUrl}>Descargar gratis</a>
+        <a class="hero-link link-arrow" href="#funciones">Ver funciones</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── Presentación ───────────── -->
+  <section class="intro section-alt">
+    <div class="container center reveal">
+      <h2 class="headline-hero">{site.name}</h2>
+      <p class="lead intro-lead">
+        La app para parejas donde guardan su historia: recuerdos, días especiales, notas de amor y todo lo que
+        viven juntos.
+      </p>
+      <p class="caption intro-caption">Gratis en App Store · Para iPhone</p>
+    </div>
+    <div class="intro-phones reveal" aria-label="Capturas de MyDiess">
+      <PhoneFrame src="/screens/journal.webp" alt="Diario con recuerdos y días especiales" width={270} class="intro-phone side" />
+      <PhoneFrame src="/screens/home.webp" alt="Inicio con estado de ánimo y estadísticas de pareja" width={310} class="intro-phone front" eager />
+      <PhoneFrame src="/screens/lovebox.webp" alt="Lovebox con notas de amor" width={270} class="intro-phone side" />
+    </div>
+  </section>
+
+  <!-- ───────────── Funciones ───────────── -->
+  <section class="section" id="funciones">
+    <div class="container center reveal">
+      <p class="eyebrow">Funciones</p>
+      <h2 class="headline-section">Todo lo que comparten.<br />En una sola app.</h2>
+    </div>
+    <ul class="features container-wide">
+      {features.map((feature, index) => (
+        <li class="feature reveal" style={`transition-delay:${(index % 4) * 60}ms`}>
+          <span class="feature-icon"><Icon name={feature.icon} /></span>
+          <h3>{feature.title}</h3>
+          <p>{feature.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ───────────── Diario ───────────── -->
+  <section class="section section-alt" id="diario">
+    <div class="split container-wide">
+      <div class="split-copy reveal">
+        <p class="eyebrow">Diario</p>
+        <h2 class="headline-section">Cada momento, guardado para siempre.</h2>
+        <p class="body-lg">
+          Escriban lo que vivieron, agreguen hasta seis fotos y marquen el lugar.
+          <strong>Los días especiales llevan la cuenta regresiva</strong> de su próximo aniversario, cumpleaños o
+          viaje, con su propio color y emoji.
+        </p>
+        <ul class="checklist">
+          <li><Icon name="camera" /> Fotos optimizadas que cargan al instante</li>
+          <li><Icon name="calendar" /> Días especiales que se repiten cada año</li>
+          <li><Icon name="map" /> Ubicación con búsqueda de lugares</li>
+        </ul>
+      </div>
+      <div class="split-media reveal">
+        <PhoneFrame src="/screens/journal.webp" alt="Diario de MyDiess con recuerdos agrupados por fecha" width={320} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── Mapa ───────────── -->
+  <section class="section section-dark map-section" id="mapa">
+    <div class="container center reveal">
+      <p class="eyebrow">Mapa de amor</p>
+      <h2 class="headline-section">Todos los lugares que han sido suyos.</h2>
+      <p class="body-lg map-copy">
+        Cada recuerdo con ubicación aparece en el mapa. Acérquense para ver sus citas en la ciudad o aléjense
+        para descubrir <strong>cuántos países y ciudades</strong> han recorrido juntos.
+      </p>
+    </div>
+    <div class="map-stage reveal">
+      <PhoneFrame src="/screens/map.webp" alt="Mapa con los recuerdos de la pareja" width={340} />
+      <div class="map-stat map-stat-left">
+        <span class="map-stat-value">Países</span>
+        <span class="map-stat-label">y ciudades visitadas, contados solos</span>
+      </div>
+      <div class="map-stat map-stat-right">
+        <span class="map-stat-value">Zoom</span>
+        <span class="map-stat-label">los grupos se abren en recuerdos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── Lovebox ───────────── -->
+  <section class="section" id="lovebox">
+    <div class="container center reveal">
+      <p class="eyebrow">Lovebox</p>
+      <h2 class="headline-section">Un “te quiero” nunca tarda en llegar.</h2>
+      <p class="body-lg lovebox-copy">
+        Envía <strong>notas de amor</strong> con texto, foto o un garabato, o un <strong>toque de amor</strong>
+        (un abrazo, un beso, un “te extraño”) con un solo toque. Tu pareja recibe una notificación al instante.
+      </p>
+    </div>
+    <div class="duo reveal">
+      <PhoneFrame src="/screens/lovebox.webp" alt="Notas de amor en Lovebox" width={290} />
+      <PhoneFrame src="/screens/taps.webp" alt="Toques de amor en Lovebox" width={290} class="duo-offset" />
+    </div>
+  </section>
+
+  <!-- ───────────── Estado de ánimo y estadísticas ───────────── -->
+  <section class="section section-alt" id="animo">
+    <div class="split split-reverse container-wide">
+      <div class="split-copy reveal">
+        <p class="eyebrow">Inicio</p>
+        <h2 class="headline-section">Siempre saben cómo está el otro.</h2>
+        <p class="body-lg">
+          Compartan su <strong>estado de ánimo</strong> y véanlo cambiar en tiempo real. Publiquen una
+          <strong>historia del día</strong> que dura 24 horas, sigan su <strong>racha</strong><sup>1</sup> y miren crecer sus
+          estadísticas: días juntos, notas, toques y lugares visitados.
+        </p>
+      </div>
+      <div class="split-media reveal">
+        <PhoneFrame src="/screens/home.webp" alt="Inicio con estados de ánimo, racha y estadísticas" width={320} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── Garabato en vivo ───────────── -->
+  <section class="section doodle-section" id="garabato">
+    <div class="split container-wide">
+      <div class="split-copy reveal">
+        <p class="eyebrow doodle-eyebrow">Garabato en vivo</p>
+        <h2 class="headline-section">Dibujen juntos. Aunque estén lejos.</h2>
+        <p class="body-lg doodle-copy">
+          Abran el garabato al mismo tiempo y cada trazo aparece en el iPhone del otro
+          <strong>mientras lo dibujan</strong>.<sup>2</sup> Vean quién está dentro, elijan colores y grosor, pongan una
+          foto de fondo y guarden su obra en Fotos.
+        </p>
+      </div>
+      <div class="split-media reveal">
+        <PhoneFrame src="/screens/drawing-colors.webp" alt="Garabato en vivo con paleta de colores" width={320} />
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── Widgets ───────────── -->
+  <section class="section" id="widgets">
+    <div class="container center reveal">
+      <p class="eyebrow">Widgets</p>
+      <h2 class="headline-section">Su amor, cada vez que desbloqueas.</h2>
+      <p class="body-lg widgets-copy">
+        Agrega a tu pantalla de bloqueo o de inicio los <strong>días que llevan juntos</strong>, la cuenta
+        regresiva de su <strong>próximo día especial</strong> y el <strong>estado de ánimo</strong> de tu pareja.<sup>3</sup>
+        La app te enseña a hacerlo paso a paso.
+      </p>
+    </div>
+    <div class="duo reveal">
+      <PhoneFrame src="/screens/widgets.webp" alt="Pantalla de widgets de MyDiess" width={290} />
+      <PhoneFrame src="/screens/widget-tutorial-lock-0.webp" alt="Tutorial para añadir widgets a la pantalla de bloqueo" width={290} class="duo-offset" />
+    </div>
+  </section>
+
+  <!-- ───────────── Privacidad ───────────── -->
+  <section class="section section-dark" id="privacidad">
+    <div class="container center reveal">
+      <p class="eyebrow">Privacidad</p>
+      <h2 class="headline-section">Solo para ustedes dos.</h2>
+    </div>
+    <ul class="privacy container-wide">
+      <li class="privacy-item reveal">
+        <Icon name="lock" />
+        <h3>Solo tu pareja lo ve</h3>
+        <p>Cada recuerdo, nota y foto está protegido para que solo las dos personas de la pareja puedan acceder.</p>
+      </li>
+      <li class="privacy-item reveal">
+        <Icon name="shield" />
+        <h3>Sin anuncios ni venta de datos</h3>
+        <p>No mostramos publicidad, no vendemos tu información y no la usamos para rastrearte.</p>
+      </li>
+      <li class="privacy-item reveal">
+        <Icon name="hand" />
+        <h3>Tú decides</h3>
+        <p>Cámara, fotos, ubicación y notificaciones solo se usan si les das permiso, y puedes quitarlo cuando quieras.</p>
+      </li>
+    </ul>
+    <p class="center privacy-link reveal"><a class="link-arrow" href="/privacidad">Lee la política de privacidad</a></p>
+  </section>
+
+  <!-- ───────────── Cómo empezar ───────────── -->
+  <section class="section section-alt">
+    <div class="container center reveal">
+      <p class="eyebrow">Cómo empezar</p>
+      <h2 class="headline-section">Listos en un minuto.</h2>
+    </div>
+    <ol class="steps container-wide">
+      <li class="step reveal">
+        <span class="step-number">1</span>
+        <h3>Descarga MyDiess</h3>
+        <p>Crea tu cuenta con tu correo o con Iniciar sesión con Apple.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step-number">2</span>
+        <h3>Invita a tu pareja</h3>
+        <p>Envíale tu código de invitación. Cuando lo introduzca, quedarán conectados.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step-number">3</span>
+        <h3>Empiecen su historia</h3>
+        <p>Guarden su primer recuerdo, fijen su aniversario y envíense la primera nota.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ───────────── Llamado final ───────────── -->
+  <section class="section cta" id="descargar">
+    <div class="container center reveal">
+      <img class="cta-icon" src="/brand/app-icon-512.png" alt="" width="512" height="512" loading="lazy" />
+      <h2 class="headline-section">Su historia merece un lugar.</h2>
+      <p class="lead">Descarga {site.name} gratis para iPhone.</p>
+      <div class="btn-group center cta-actions">
+        <a class="btn btn-primary" href={site.appStoreUrl}>Descargar en App Store</a>
+        <a class="link-arrow" href="/soporte">¿Tienes dudas? Visita Soporte</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: min(760px, calc(100svh - 48px));
+    display: grid;
+    place-items: center;
+    padding: 72px 22px 88px;
+    background:
+      radial-gradient(120% 90% at 50% 20%, #f6a9c7 0%, rgba(246, 169, 199, 0) 60%),
+      linear-gradient(180deg, #e98ab4 0%, #c9589a 55%, #9b3f86 100%);
+    color: #fff;
+    text-align: center;
+  }
+  .hero-glow {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: min(620px, 90vw);
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.12) 38%, rgba(255, 255, 255, 0) 68%);
+    filter: blur(8px);
+    animation: glow 7s ease-in-out infinite;
+  }
+  @keyframes glow {
+    50% { transform: translateX(-50%) scale(1.06); opacity: 0.85; }
+  }
+  .hero-content {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 28px;
+  }
+  .hero-mascot {
+    width: min(460px, 82vw);
+    filter: drop-shadow(0 30px 40px rgba(120, 20, 80, 0.35));
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    50% { transform: translateY(-10px); }
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: 1.125;
+    font-weight: 600;
+    letter-spacing: 0.004em;
+    margin: 0;
+    max-width: 760px;
+    text-wrap: balance;
+  }
+  .hero-link {
+    color: #fff;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-glow, .hero-mascot { animation: none; }
+  }
+
+  /* Presentación */
+  /* Los teléfonos quedan cortados por el borde inferior de la sección,
+     como en las presentaciones de producto de apple.com. */
+  .intro {
+    padding-top: 100px;
+    overflow: hidden;
+    height: min(1180px, 100vw * 1.05);
+  }
+  .intro-lead {
+    max-width: 720px;
+    margin-inline: auto;
+    text-wrap: balance;
+  }
+  .intro-caption {
+    margin-top: 18px;
+    font-size: 17px;
+    color: var(--ink-secondary);
+  }
+  .intro-phones {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+    margin-top: 72px;
+    padding-inline: 22px;
+  }
+  .intro-phones :global(.intro-phone.side) {
+    margin-inline: -34px;
+    transform: translateY(60px) scale(0.94);
+    opacity: 0.97;
+  }
+  .intro-phones :global(.intro-phone.front) {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Funciones */
+  .features {
+    list-style: none;
+    padding: 0;
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .feature {
+    background: var(--surface-alt);
+    border-radius: var(--radius-tile);
+    padding: 32px 28px;
+  }
+  .feature-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--pink-soft);
+    color: var(--pink);
+    margin-bottom: 20px;
+  }
+  .feature h3 {
+    font-family: var(--font-display);
+    font-size: 21px;
+    line-height: 1.19;
+    font-weight: 600;
+    letter-spacing: 0.011em;
+    margin: 0 0 8px;
+  }
+  .feature p {
+    margin: 0;
+    color: var(--ink-secondary);
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  /* Bloques de texto + teléfono */
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 64px;
+  }
+  .split-reverse .split-copy {
+    order: 2;
+  }
+  .split-copy .headline-section {
+    margin-bottom: 24px;
+    text-wrap: balance;
+  }
+  .split-media {
+    display: flex;
+    justify-content: center;
+  }
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: grid;
+    gap: 14px;
+  }
+  .checklist li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .checklist :global(svg) {
+    color: var(--pink);
+    flex: none;
+  }
+
+  /* Mapa */
+  .map-copy,
+  .lovebox-copy,
+  .widgets-copy {
+    max-width: 720px;
+    margin: 24px auto 0;
+    text-wrap: balance;
+  }
+  .map-stage {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 72px;
+  }
+  .map-stat {
+    position: absolute;
+    top: 40%;
+    display: grid;
+    gap: 4px;
+    max-width: 220px;
+  }
+  .map-stat-left {
+    right: calc(50% + 220px);
+    text-align: right;
+  }
+  .map-stat-right {
+    left: calc(50% + 220px);
+  }
+  .map-stat-value {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff9ac1, #c7a3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .map-stat-label {
+    color: #a1a1a6;
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  /* Dos teléfonos */
+  .duo {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 72px;
+    padding-inline: 22px;
+  }
+  .duo :global(.duo-offset) {
+    transform: translateY(56px);
+  }
+
+  /* Garabato */
+  .doodle-section {
+    background: linear-gradient(180deg, #e7d7bd 0%, #e69bb9 50%, #df53d6 100%);
+    color: #fff;
+  }
+  .doodle-eyebrow {
+    color: #fff;
+    opacity: 0.9;
+  }
+  .doodle-copy {
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .doodle-copy strong {
+    color: #fff;
+  }
+
+  /* Privacidad */
+  .privacy {
+    list-style: none;
+    padding: 0;
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .privacy-item {
+    background: var(--surface-dark-alt);
+    border-radius: var(--radius-tile);
+    padding: 36px 32px;
+  }
+  .privacy-item :global(svg) {
+    color: #ff8fbd;
+    width: 36px;
+    height: 36px;
+  }
+  .privacy-item h3 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 20px 0 10px;
+  }
+  .privacy-item p {
+    margin: 0;
+    color: #a1a1a6;
+  }
+  .privacy-link {
+    margin: 48px 0 0;
+  }
+
+  /* Pasos */
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .step {
+    background: var(--surface);
+    border-radius: var(--radius-tile);
+    padding: 36px 32px;
+  }
+  .step-number {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-weight: 600;
+  }
+  .step h3 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+  }
+  .step p {
+    margin: 0;
+    color: var(--ink-secondary);
+  }
+
+  /* Llamado final */
+  .cta-icon {
+    width: 120px;
+    margin: 0 auto 28px;
+    border-radius: 27px;
+    box-shadow: 0 20px 40px -16px rgba(226, 79, 135, 0.45);
+  }
+  .cta-actions {
+    margin-top: 32px;
+  }
+
+  sup {
+    font-size: 0.55em;
+    line-height: 0;
+  }
+
+  @media (max-width: 1068px) {
+    .features {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .map-stat {
+      display: none;
+    }
+    .hero-title {
+      font-size: 28px;
+    }
+  }
+
+  @media (max-width: 834px) {
+    .br-lg {
+      display: none;
+    }
+    .split {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      text-align: center;
+    }
+    .split-reverse .split-copy {
+      order: 0;
+    }
+    .checklist {
+      justify-content: center;
+    }
+    .privacy,
+    .steps {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 734px) {
+    .hero-title {
+      font-size: 24px;
+    }
+    .features {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .feature {
+      padding: 24px 20px;
+      border-radius: 22px;
+    }
+    .intro-phones :global(.intro-phone.side) {
+      display: none;
+    }
+    .intro {
+      height: auto;
+      max-height: 900px;
+    }
+    .duo {
+      gap: 14px;
+    }
+    .duo :global(.duo-offset) {
+      transform: translateY(32px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .features {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

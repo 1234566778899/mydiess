@@ -1,0 +1,170 @@
+---
+import { site } from '../config/site';
+
+interface Props {
+  /** Notas al pie de la página (se numeran solas). */
+  footnotes?: string[];
+}
+const { footnotes = [] } = Astro.props;
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: 'Descubrir',
+    links: [
+      { href: '/#funciones', label: 'Funciones' },
+      { href: '/#diario', label: 'Diario y mapa' },
+      { href: '/#lovebox', label: 'Lovebox' },
+      { href: '/#garabato', label: 'Garabato en vivo' },
+      { href: '/#widgets', label: 'Widgets' },
+    ],
+  },
+  {
+    title: 'Soporte',
+    links: [
+      { href: '/soporte', label: 'Centro de ayuda' },
+      { href: '/soporte#preguntas', label: 'Preguntas frecuentes' },
+      { href: '/eliminar-cuenta', label: 'Eliminar tu cuenta' },
+      { href: `mailto:${site.supportEmail}`, label: 'Contactar a soporte' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { href: '/privacidad', label: 'Política de privacidad' },
+      { href: '/terminos', label: 'Términos de uso' },
+    ],
+  },
+  {
+    title: site.name,
+    links: [
+      { href: site.appStoreUrl, label: 'Descargar en App Store' },
+      { href: '/#privacidad', label: 'Tu privacidad' },
+    ],
+  },
+];
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-notes">
+      {footnotes.length > 0 && (
+        <ol>
+          {footnotes.map((note) => <li>{note}</li>)}
+        </ol>
+      )}
+      <p>{site.requirements} Algunas funciones requieren conexión a internet y que ambas personas usen la app.</p>
+      <p>Las funcionalidades están sujetas a cambios.</p>
+    </div>
+
+    <nav class="footer-directory" aria-label="Mapa del sitio">
+      {columns.map((column) => (
+        <div class="footer-column">
+          <h3>{column.title}</h3>
+          <ul>
+            {column.links.map((link) => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+
+    <div class="footer-legal">
+      <p>Copyright © {year} {site.legalName}. Todos los derechos reservados.</p>
+      <ul>
+        <li><a href="/privacidad">Política de privacidad</a></li>
+        <li><a href="/terminos">Términos de uso</a></li>
+        <li><a href="/soporte">Soporte</a></li>
+      </ul>
+      <p class="footer-locale">México · Español</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--surface-alt);
+    color: var(--ink-secondary);
+    font-size: 12px;
+    line-height: 1.33337;
+    letter-spacing: -0.01em;
+  }
+  .footer-inner {
+    width: min(var(--content), 100% - 44px);
+    margin-inline: auto;
+    padding-block: 17px 21px;
+  }
+  .footer-notes {
+    padding-block: 17px 11px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .footer-notes ol {
+    margin: 0 0 12px;
+    padding-left: 16px;
+  }
+  .footer-notes li,
+  .footer-notes p {
+    margin: 0 0 12px;
+  }
+
+  .footer-directory {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding-block: 20px;
+  }
+  .footer-column h3 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .footer-column ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-column li {
+    margin-bottom: 8px;
+  }
+  .footer-column a,
+  .footer-legal a {
+    color: #424245;
+  }
+
+  .footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 30px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hairline);
+  }
+  .footer-legal p {
+    margin: 0;
+  }
+  .footer-legal ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-legal li + li::before {
+    content: "|";
+    margin-inline: 10px;
+    color: var(--hairline);
+  }
+  .footer-locale {
+    margin-left: auto !important;
+  }
+
+  @media (max-width: 734px) {
+    .footer-directory {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-locale {
+      margin-left: 0 !important;
+    }
+  }
+</style>

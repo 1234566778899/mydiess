@@ -1,0 +1,109 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../config/site';
+---
+
+<LegalLayout title="Términos de uso" description={`Condiciones para usar ${site.name}.`}>
+  <p class="body-lg">
+    Estos términos regulan el uso de la app {site.name} y de este sitio web. Al crear una cuenta o usar la app,
+    aceptas estos términos. Si no estás de acuerdo, no uses {site.name}.
+  </p>
+
+  <h2>1. Quién puede usar {site.name}</h2>
+  <ul>
+    <li>Debes tener al menos {site.minimumAge} años, o la edad mínima que exija la ley de tu país para dar tu
+      consentimiento. Si eres menor de edad, necesitas autorización de tu madre, padre o tutor.</li>
+    <li>Debes proporcionar información verdadera y mantener tu cuenta segura. Eres responsable de la actividad que
+      ocurra en tu cuenta.</li>
+    <li>Una cuenta es personal y solo puede estar conectada a una pareja a la vez.</li>
+  </ul>
+
+  <h2>2. El servicio</h2>
+  <p>
+    {site.name} permite a dos personas conectadas como pareja guardar y compartir recuerdos, días especiales, notas y
+    toques de amor, estados de ánimo, historias, dibujos en tiempo real y estadísticas. Podemos mejorar, cambiar o
+    retirar funciones con el tiempo. Algunas funciones requieren conexión a internet, permisos del dispositivo o que
+    ambas personas usen la app.
+  </p>
+
+  <h2>3. Tu contenido</h2>
+  <ul>
+    <li><strong>Tu contenido es tuyo.</strong> Conservas todos los derechos sobre las fotos, textos y dibujos que
+      subes.</li>
+    <li>Nos das una licencia limitada, no exclusiva y gratuita para almacenar, procesar y mostrar tu contenido
+      únicamente con el fin de prestarte el servicio a ti y a tu pareja.</li>
+    <li>Al compartir contenido con tu pareja, esa persona podrá verlo mientras estén conectados en la app. Si guarda
+      algo en su dispositivo (por ejemplo, un dibujo en Fotos), queda fuera de nuestro control.</li>
+    <li>Declaras que tienes derecho a compartir el contenido que subes y que no infringe derechos de terceros.</li>
+  </ul>
+
+  <h2>4. Uso aceptable</h2>
+  <p>No puedes usar {site.name} para:</p>
+  <ul>
+    <li>Subir contenido ilegal, que explote o ponga en riesgo a menores, violento, de odio o que infrinja derechos
+      de autor o de privacidad de otras personas.</li>
+    <li>Acosar, amenazar, suplantar o engañar a otra persona.</li>
+    <li>Compartir contenido íntimo de alguien sin su consentimiento.</li>
+    <li>Intentar acceder a cuentas o datos ajenos, interferir con el servicio o hacer ingeniería inversa de la app.</li>
+    <li>Usar la app con fines comerciales o automatizados sin nuestra autorización.</li>
+  </ul>
+  <p>Podemos suspender o cerrar cuentas que incumplan estas reglas.</p>
+
+  <h2>5. Conexión y fin de la relación</h2>
+  <p>
+    Para compartir contenido, una persona invita a la otra con un código. Cualquiera de las dos puede terminar la
+    relación desde la app; al hacerlo, el contenido compartido se vuelve privado.
+  </p>
+
+  <h2>6. Precio</h2>
+  <p>
+    {site.name} se ofrece de forma gratuita. Si en el futuro agregamos funciones de pago, sus condiciones y precios
+    se mostrarán claramente en la app antes de comprar, y los pagos se procesarán a través de App Store conforme a
+    las condiciones de Apple.
+  </p>
+
+  <h2>7. Apple y App Store</h2>
+  <p>
+    Estos términos son entre tú y {site.legalName}, no con Apple. Apple no es responsable de la app ni de su
+    contenido, ni tiene obligación de darte soporte o mantenimiento. En la medida en que lo permita la ley, Apple no
+    tiene otras garantías respecto de la app. Apple y sus filiales son terceros beneficiarios de estos términos y
+    pueden hacerlos valer. Al descargar la app también aceptas las condiciones de uso de App Store.
+  </p>
+
+  <h2>8. Propiedad intelectual</h2>
+  <p>
+    La app, su diseño, la marca {site.name}, el logotipo y la mascota son propiedad de {site.legalName} y están
+    protegidos por la ley. Estos términos no te otorgan derechos sobre ellos, salvo el uso personal de la app.
+  </p>
+
+  <h2>9. Eliminación de la cuenta</h2>
+  <p>
+    Puedes dejar de usar {site.name} y eliminar tu cuenta en cualquier momento. Consulta cómo hacerlo en
+    <a href="/eliminar-cuenta">Eliminar tu cuenta</a>. Podemos suspender o cerrar tu cuenta si incumples estos
+    términos o si lo exige la ley.
+  </p>
+
+  <h2>10. Limitación de responsabilidad</h2>
+  <p>
+    La app se ofrece “tal cual” y “según disponibilidad”. Hacemos lo posible por que funcione bien y proteger tu
+    información, pero no garantizamos que esté libre de errores o interrupciones. Te recomendamos guardar copias de
+    lo que sea importante para ti. En la medida en que lo permita la ley, no somos responsables de daños indirectos
+    ni de la pérdida de contenido derivada del uso de la app.
+  </p>
+
+  <h2>11. Cambios a estos términos</h2>
+  <p>
+    Podemos actualizar estos términos. Si los cambios son importantes, te avisaremos en la app o por correo. Si
+    sigues usando {site.name} después de que entren en vigor, significa que los aceptas.
+  </p>
+
+  <h2>12. Ley aplicable</h2>
+  <p>
+    Estos términos se rigen por las leyes de {site.jurisdiction}. Cualquier controversia se resolverá ante los
+    tribunales competentes de {site.jurisdiction}, salvo que la ley de tu país te otorgue un derecho distinto como
+    consumidor.
+  </p>
+
+  <h2>13. Contacto</h2>
+  <p>¿Dudas sobre estos términos? Escríbenos a <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>.</p>
+</LegalLayout>

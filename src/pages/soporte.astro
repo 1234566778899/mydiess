@@ -1,0 +1,308 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../config/site';
+
+const topics = [
+  { id: 'cuenta', icon: 'person', title: 'Cuenta' },
+  { id: 'pareja', icon: 'heart', title: 'Tu pareja' },
+  { id: 'diario', icon: 'book', title: 'Diario y mapa' },
+  { id: 'lovebox', icon: 'envelope', title: 'Lovebox' },
+  { id: 'widgets', icon: 'widgets', title: 'Widgets' },
+  { id: 'notificaciones', icon: 'bell', title: 'Notificaciones' },
+  { id: 'privacidad', icon: 'lock', title: 'Privacidad' },
+];
+
+const faqs: { topic: string; q: string; a: string }[] = [
+  { topic: 'cuenta', q: '¿Cómo creo una cuenta?', a: `Abre ${site.name}, toca <strong>Empecemos</strong> y sigue los pasos. Puedes registrarte con tu correo y una contraseña, o con <strong>Iniciar sesión con Apple</strong>.` },
+  { topic: 'cuenta', q: 'Olvidé mi contraseña', a: 'En la pantalla de inicio de sesión toca <strong>¿Olvidaste tu contraseña?</strong>, escribe tu correo y te enviaremos instrucciones para crear una nueva. Revisa también tu carpeta de correo no deseado.' },
+  { topic: 'cuenta', q: '¿Cómo cambio mi nombre o mi foto de perfil?', a: 'Ve a <strong>Perfil › Sobre ti</strong>. Ahí puedes cambiar tu foto de perfil y tu nombre.' },
+  { topic: 'cuenta', q: '¿Cómo elimino mi cuenta?', a: 'Ve a <strong>Perfil › Sobre ti › Eliminar cuenta</strong>. También puedes pedirlo por correo. Consulta todos los detalles en <a href="/eliminar-cuenta">Eliminar tu cuenta</a>.' },
+
+  { topic: 'pareja', q: '¿Cómo me conecto con mi pareja?', a: 'Ve a <strong>Perfil › Conéctate con tu pareja</strong> y toca <strong>Enviar código</strong> para compartir tu código de invitación. Tu pareja debe escribirlo en <strong>Introduce el código de tu pareja</strong> y tocar <strong>Conectar</strong>. También pueden hacerlo durante el registro.' },
+  { topic: 'pareja', q: 'El código de invitación no funciona', a: 'Verifica que esté escrito tal cual (sin espacios) y que sea el código de tu pareja, no el tuyo. Cada código solo sirve para conectar a una persona; si ya se usó, pide a tu pareja que revise su pantalla <strong>Conéctate con tu pareja</strong>.' },
+  { topic: 'pareja', q: '¿Cómo termino la relación en la app?', a: 'Ve a <strong>Perfil › Conéctate con tu pareja › Gestionar relación › Terminar relación</strong>. El contenido compartido se vuelve privado y tu pareja recibe un aviso. Esta acción no se puede deshacer.' },
+  { topic: 'pareja', q: '¿Cómo cambio nuestra fecha de aniversario?', a: 'En <strong>Inicio</strong>, toca la tarjeta <strong>Días juntos</strong>, elige la fecha y toca <strong>Guardar</strong>.' },
+
+  { topic: 'diario', q: '¿Cómo agrego un recuerdo o un día especial?', a: 'En <strong>Diario</strong> toca <strong>+</strong> y elige <strong>Recuerdo</strong> o <strong>Día especial</strong>. A los recuerdos puedes añadirles fotos, fecha, hora y ubicación; a los días especiales, un emoji, un color y que se repitan cada año.' },
+  { topic: 'diario', q: '¿Por qué un recuerdo no aparece en el mapa?', a: 'Solo aparecen en el mapa los recuerdos que tienen ubicación. Edita el recuerdo y agrega un lugar. Si hay varios recuerdos cerca, se agrupan: acércate en el mapa o toca el grupo para verlos.' },
+  { topic: 'diario', q: '¿Cómo guardo una foto en mi iPhone?', a: 'Abre el recuerdo, toca la foto para verla en pantalla completa y toca el botón de descargar. La primera vez, iOS te pedirá permiso para guardar en Fotos.' },
+
+  { topic: 'lovebox', q: '¿Qué son las notas y los toques de amor?', a: 'Las <strong>notas de amor</strong> son mensajes con texto, foto o un garabato. Los <strong>toques de amor</strong> son gestos rápidos como un abrazo, un beso o un “te extraño”. Ambos llegan al Lovebox de tu pareja, en <strong>Atajos</strong>.' },
+  { topic: 'lovebox', q: '¿Cómo funciona el garabato en vivo?', a: 'Ve a <strong>Atajos › Garabato en vivo</strong>. Cuando tu pareja también lo abra, verás un punto verde junto a su nombre y cada trazo aparecerá en ambos iPhone mientras dibujan. Los dibujos no se guardan en la app: usa el botón de descargar para guardarlos en Fotos.' },
+  { topic: 'lovebox', q: '¿Cómo publico una historia?', a: 'En <strong>Inicio</strong> toca tu círculo de perfil o el botón <strong>+</strong>, toma o elige una foto, agrega un comentario si quieres y publícala. Tu pareja podrá verla durante 24 horas.' },
+
+  { topic: 'widgets', q: '¿Cómo agrego un widget?', a: 'En la app ve a <strong>Atajos › Widgets</strong> y toca <strong>¿Cómo añadir un widget…?</strong> para ver el paso a paso. En resumen: mantén pulsada tu pantalla de bloqueo o de inicio, toca <strong>Personalizar</strong> o <strong>Editar</strong>, luego <strong>Añadir widgets</strong> y busca <strong>MyDiess</strong>.' },
+  { topic: 'widgets', q: 'Mi widget no se actualiza', a: 'Abre MyDiess una vez para que el widget reciba los datos más recientes. Los días juntos y la cuenta regresiva avanzan solos cada medianoche. Si sigue sin cambiar, quita el widget y vuelve a agregarlo.' },
+
+  { topic: 'notificaciones', q: 'No recibo notificaciones', a: 'Revisa en <strong>Ajustes › Notificaciones › MyDiess</strong> que estén permitidas y que no tengas activado un modo de concentración que las silencie. Luego abre MyDiess con tu sesión iniciada para que tu dispositivo quede registrado.' },
+  { topic: 'notificaciones', q: '¿De qué me avisa MyDiess?', a: 'Te avisamos cuando tu pareja te envía una nota o un toque de amor, cuando actualiza su estado de ánimo y cuando se conecta contigo.' },
+
+  { topic: 'privacidad', q: '¿Quién puede ver lo que comparto?', a: 'Solo tú y tu pareja. Cada recuerdo, nota y foto está protegido para que ninguna otra cuenta pueda verlo.' },
+  { topic: 'privacidad', q: '¿Venden o usan mis datos para publicidad?', a: `No. ${site.name} no muestra anuncios, no vende tu información y no te rastrea. Lee la <a href="/privacidad">Política de privacidad</a>.` },
+];
+---
+
+<BaseLayout title="Soporte" description={`Ayuda para usar ${site.name}: cuenta, pareja, diario, Lovebox, widgets, notificaciones y privacidad.`}>
+  <section class="support-hero">
+    <div class="container center">
+      <img src="/brand/app-icon-180.png" alt="" width="180" height="180" class="support-icon" />
+      <h1 class="headline-section">Soporte de {site.name}</h1>
+      <p class="lead">¿En qué podemos ayudarte?</p>
+      <label class="search">
+        <span class="visually-hidden">Buscar en preguntas frecuentes</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input type="search" placeholder="Buscar en preguntas frecuentes" data-faq-search autocomplete="off" />
+      </label>
+    </div>
+  </section>
+
+  <section class="topics-section">
+    <ul class="topics container-wide">
+      {topics.map((topic) => (
+        <li>
+          <a class="topic" href={`#${topic.id}`}>
+            <span class="topic-icon"><Icon name={topic.icon} size={28} /></span>
+            <span>{topic.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section faq-section" id="preguntas">
+    <div class="faq container">
+      <h2 class="headline-md">Preguntas frecuentes</h2>
+      {topics.map((topic) => (
+        <div class="faq-group" id={topic.id} data-faq-group>
+          <h3 class="faq-group-title">{topic.title}</h3>
+          {faqs.filter((faq) => faq.topic === topic.id).map((faq) => (
+            <details class="faq-item" data-faq-item>
+              <summary>{faq.q}</summary>
+              <p set:html={faq.a} />
+            </details>
+          ))}
+        </div>
+      ))}
+      <p class="faq-empty" data-faq-empty hidden>No encontramos resultados. Escríbenos y te ayudamos.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="contact">
+        <span class="contact-icon"><Icon name="mail" size={32} /></span>
+        <div>
+          <h2 class="headline-sm">¿No encontraste lo que buscabas?</h2>
+          <p class="contact-copy">
+            Escríbenos y te responderemos lo antes posible, normalmente en menos de 48 horas hábiles. Cuéntanos qué
+            pasó, el modelo de tu iPhone y tu versión de iOS.
+          </p>
+          <a class="btn btn-primary" href={`mailto:${site.supportEmail}?subject=Soporte%20${site.name}`}>Escribir a soporte</a>
+          <p class="caption contact-email">{site.supportEmail}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('[data-faq-search]');
+  const groups = document.querySelectorAll<HTMLElement>('[data-faq-group]');
+  const empty = document.querySelector<HTMLElement>('[data-faq-empty]');
+  const normalize = (text: string) => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+  input?.addEventListener('input', () => {
+    const query = normalize(input.value.trim());
+    let visible = 0;
+    groups.forEach((group) => {
+      let groupVisible = 0;
+      group.querySelectorAll<HTMLDetailsElement>('[data-faq-item]').forEach((item) => {
+        const match = !query || normalize(item.textContent ?? '').includes(query);
+        item.hidden = !match;
+        item.open = Boolean(query) && match;
+        if (match) groupVisible++;
+      });
+      group.hidden = groupVisible === 0;
+      visible += groupVisible;
+    });
+    if (empty) empty.hidden = visible > 0;
+  });
+</script>
+
+<style>
+  .support-hero {
+    padding: 80px 0 48px;
+    background: linear-gradient(180deg, var(--pink-soft) 0%, #fff 100%);
+  }
+  .support-icon {
+    width: 88px;
+    margin: 0 auto 24px;
+    border-radius: 20px;
+    box-shadow: 0 16px 32px -14px rgba(226, 79, 135, 0.5);
+  }
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 560px;
+    margin: 36px auto 0;
+    padding: 0 18px;
+    height: 52px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid var(--hairline);
+    color: var(--ink-tertiary);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .search:focus-within {
+    border-color: var(--link);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+  }
+  .search input {
+    flex: 1;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 17px;
+    color: var(--ink);
+  }
+
+  .topics-section {
+    padding-bottom: 24px;
+  }
+  .topics {
+    list-style: none;
+    padding: 0;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+  }
+  .topic {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    padding: 20px 8px;
+    border-radius: var(--radius-card);
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  .topic:hover {
+    background: var(--surface-alt);
+    text-decoration: none;
+  }
+  .topic-icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--pink-soft);
+    color: var(--pink);
+  }
+
+  .faq-section {
+    padding-top: 48px;
+  }
+  .faq {
+    max-width: 780px;
+  }
+  .faq-group {
+    margin-top: 48px;
+  }
+  .faq-group-title {
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--ink-secondary);
+    margin: 0 0 8px;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--hairline);
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 20px 36px 20px 0;
+    position: relative;
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.012em;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item summary::after {
+    content: "";
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--ink-secondary);
+    border-bottom: 2px solid var(--ink-secondary);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.25s ease;
+  }
+  .faq-item[open] summary::after {
+    transform: translateY(-30%) rotate(-135deg);
+  }
+  .faq-item p {
+    margin: 0 0 22px;
+    color: #424245;
+  }
+  .faq-empty {
+    margin-top: 32px;
+    color: var(--ink-secondary);
+  }
+
+  .contact {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    max-width: 780px;
+    margin-inline: auto;
+    background: #fff;
+    border-radius: var(--radius-tile);
+    padding: 40px;
+  }
+  .contact-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: var(--pink-soft);
+    color: var(--pink);
+  }
+  .contact-copy {
+    color: var(--ink-secondary);
+    margin: 12px 0 24px;
+  }
+  .contact-email {
+    margin: 12px 0 0;
+  }
+
+  @media (max-width: 1068px) {
+    .topics {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (max-width: 734px) {
+    .topics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .contact {
+      flex-direction: column;
+      padding: 28px;
+    }
+  }
+</style>

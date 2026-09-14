@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página no encontrada">
+  <section class="section center not-found">
+    <div class="container">
+      <img src="/brand/mascot.webp" alt="" width="1000" height="590" class="not-found-mascot" />
+      <h1 class="headline-section">Esta página se perdió.</h1>
+      <p class="lead">Pero tu historia sigue aquí.</p>
+      <div class="btn-group center" style="margin-top:32px">
+        <a class="btn btn-primary" href="/">Ir al inicio</a>
+        <a class="link-arrow" href="/soporte">Visitar Soporte</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found-mascot {
+    width: min(320px, 70vw);
+    margin: 0 auto 32px;
+  }
+</style>

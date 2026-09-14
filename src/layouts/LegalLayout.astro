@@ -1,0 +1,96 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { site } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="legal">
+    <header class="legal-header">
+      <p class="eyebrow">{site.name}</p>
+      <h1 class="headline-section">{title}</h1>
+      <p class="legal-updated">Última actualización: {site.legalUpdatedAt}</p>
+    </header>
+    <div class="legal-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal {
+    width: min(692px, 100% - 44px);
+    margin-inline: auto;
+    padding-block: 80px 120px;
+  }
+  .legal-header {
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .legal-updated {
+    margin: 16px 0 0;
+    color: var(--ink-secondary);
+    font-size: 14px;
+  }
+  .legal-body :global(h2) {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.14;
+    font-weight: 600;
+    letter-spacing: 0.007em;
+    margin: 56px 0 16px;
+  }
+  .legal-body :global(h3) {
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 600;
+    margin: 32px 0 8px;
+  }
+  .legal-body :global(p),
+  .legal-body :global(li) {
+    color: #333336;
+  }
+  .legal-body :global(ul) {
+    padding-left: 22px;
+  }
+  .legal-body :global(li) {
+    margin-bottom: 8px;
+  }
+  .legal-body :global(.callout) {
+    background: var(--surface-alt);
+    border-radius: var(--radius-card);
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .legal-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 16px 0;
+  }
+  .legal-body :global(th),
+  .legal-body :global(td) {
+    text-align: left;
+    vertical-align: top;
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .legal-body :global(th) {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .legal-body :global(.table-scroll) {
+    overflow-x: auto;
+  }
+  @media (max-width: 734px) {
+    .legal {
+      padding-block: 56px 80px;
+    }
+  }
+</style>

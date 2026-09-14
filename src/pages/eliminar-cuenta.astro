@@ -1,0 +1,46 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../config/site';
+---
+
+<LegalLayout
+  title="Eliminar tu cuenta"
+  description={`Cómo eliminar tu cuenta de ${site.name} y qué pasa con tus datos.`}
+>
+  <p class="body-lg">
+    Puedes eliminar tu cuenta de {site.name} y todos tus datos personales en cualquier momento.
+  </p>
+
+  <h2>Desde la app</h2>
+  <ol>
+    <li>Abre {site.name} y ve a <strong>Perfil</strong>.</li>
+    <li>Toca <strong>Sobre ti</strong>.</li>
+    <li>Toca <strong>Eliminar cuenta</strong> y confirma.</li>
+  </ol>
+
+  <h2>Por correo</h2>
+  <p>
+    Si ya no tienes la app instalada, escríbenos a <a href={`mailto:${site.supportEmail}?subject=Eliminar%20mi%20cuenta`}>{site.supportEmail}</a>
+    desde el correo con el que creaste la cuenta, con el asunto “Eliminar mi cuenta”. Verificaremos que la cuenta es
+    tuya y la eliminaremos en un plazo máximo de 30 días.
+  </p>
+
+  <h2>Qué se elimina</h2>
+  <ul>
+    <li>Tu perfil: nombre, correo, foto y datos de inicio de sesión.</li>
+    <li>Los recuerdos, fotos, notas, toques, historias y estados de ánimo que creaste.</li>
+    <li>Tu conexión con tu pareja. Tu pareja conservará su cuenta, pero dejará de ver el contenido que compartían.</li>
+    <li>Tu token de notificaciones.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Esta acción no se puede deshacer.</strong> Si hay algo que quieras conservar, guárdalo en tu iPhone antes
+    de eliminar tu cuenta. Podemos conservar cierta información solo cuando la ley nos obligue a hacerlo.
+  </div>
+
+  <h2>Si usaste Iniciar sesión con Apple</h2>
+  <p>
+    Al eliminar tu cuenta también revocamos el acceso de {site.name} a tu Apple ID. Puedes confirmarlo en
+    <strong>Ajustes › [tu nombre] › Iniciar sesión con Apple</strong>.
+  </p>
+</LegalLayout>

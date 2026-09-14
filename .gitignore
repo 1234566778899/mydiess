@@ -1,0 +1,20 @@
+# dependencias
+node_modules/
+
+# salida de la compilación
+dist/
+.astro/
+
+# entornos y credenciales
+.env
+.env.production
+.env.local
+
+# despliegue
+.vercel
+
+# sistema / editor
+.DS_Store
+*.log
+.idea/
+.vscode/

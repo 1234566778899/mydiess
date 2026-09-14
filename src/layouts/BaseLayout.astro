@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import GlobalNav from '../components/GlobalNav.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  footnotes?: string[];
+}
+const { title, description = site.description, footnotes } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
+// Con `build.format: 'file'` el pathname trae ".html"; la URL pública que
+// sirve Vercel (`cleanUrls`) no lo lleva, así que la canónica debe coincidir.
+const cleanPath = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '');
+const canonical = new URL(cleanPath, site.url).toString();
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#fafafc" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/brand/app-icon-32.png" />
+    <link rel="apple-touch-icon" href="/brand/app-icon-180.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/brand/app-icon-512.png', site.url).toString()} />
+    <meta name="twitter:card" content="summary" />
+    <!-- PENDIENTE: al publicar la app, agrega el banner inteligente de App Store:
+         <meta name="apple-itunes-app" content="app-id=TU_APP_ID" /> -->
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <GlobalNav />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer footnotes={footnotes} />
+
+    <script>
+      // Aparición suave de las secciones al entrar en pantalla.
+      const items = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
+        );
+        items.forEach((item) => observer.observe(item));
+      } else {
+        items.forEach((item) => item.classList.add('is-visible'));
+      }
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 12px;
+        top: -60px;
+        z-index: 200;
+        background: #fff;
+        padding: 8px 14px;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      }
+      .skip-link:focus {
+        top: 8px;
+      }
+    </style>
+  </body>
+</html>
