@@ -37,9 +37,11 @@ seguridad y caché de imágenes), así que no hay que configurar nada a mano:
 3. Deja **Root Directory** en `./` y las opciones que detecta solas
    (Framework: Astro · Build: `astro build` · Output: `dist`).
 4. **Deploy**.
-5. Publicado en **https://mydiess.vercel.app**. Si conectas un dominio
-   propio, actualiza `site` en `astro.config.mjs` y `url` en
-   `src/config/site.ts`.
+5. Publicado en **https://diess.site** (dominio de Namecheap: registro A
+   `@` y CNAME `www` hacia Vercel; `www` redirige con 308 a la raíz).
+   `https://mydiess.vercel.app` sigue funcionando (la app lo enlaza).
+   Si cambia el dominio, actualiza `site` en `astro.config.mjs`, `url` en
+   `src/config/site.ts`, `public/robots.txt` y `public/sitemap.xml`.
 
 Cada push a `main` publica una versión nueva.
 

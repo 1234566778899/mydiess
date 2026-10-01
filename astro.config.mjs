@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   // Debe coincidir con `url` en src/config/site.ts.
-  site: 'https://mydiess.vercel.app',
+  site: 'https://diess.site',
   // Sin esto, Astro elimina los saltos de línea entre texto y etiquetas en
   // línea y se pegan palabras ("lugar.<strong>Los días…").
   compressHTML: false,
