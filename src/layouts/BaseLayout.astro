@@ -10,11 +10,52 @@ interface Props {
   footnotes?: string[];
 }
 const { title, description = site.description, footnotes } = Astro.props;
-const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`;
+const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.seoTitle}`;
 // Con `build.format: 'file'` el pathname trae ".html"; la URL pública que
 // sirve Vercel (`cleanUrls`) no lo lleva, así que la canónica debe coincidir.
 const cleanPath = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '');
 const canonical = new URL(cleanPath, site.url).toString();
+const ogImage = new URL('/og.jpg', site.url).toString();
+const logo = new URL('/brand/app-icon-512.png', site.url).toString();
+
+// Datos estructurados: la app, la organización y el sitio.
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MobileApplication',
+      '@id': `${site.url}/#app`,
+      name: site.name,
+      description: site.description,
+      url: site.url,
+      image: logo,
+      operatingSystem: 'iOS 17.0 o posterior',
+      applicationCategory: 'LifestyleApplication',
+      inLanguage: ['es', 'en'],
+      installUrl: site.appStoreUrl,
+      downloadUrl: site.appStoreUrl,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      publisher: { '@id': `${site.url}/#org` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${site.url}/#org`,
+      name: site.name,
+      url: site.url,
+      logo,
+      email: site.supportEmail,
+      sameAs: [site.appStoreUrl, site.instagramUrl],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      name: site.name,
+      url: site.url,
+      inLanguage: 'es',
+      publisher: { '@id': `${site.url}/#org` },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -35,10 +76,18 @@ const canonical = new URL(cleanPath, site.url).toString();
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL('/brand/app-icon-512.png', site.url).toString()} />
-    <meta name="twitter:card" content="summary" />
-    <!-- PENDIENTE: al publicar la app, agrega el banner inteligente de App Store:
-         <meta name="apple-itunes-app" content="app-id=TU_APP_ID" /> -->
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MyDiess, la app para parejas, en un iPhone junto a la mascota" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <!-- Banner inteligente de App Store en Safari para iPhone. -->
+    <meta name="apple-itunes-app" content={`app-id=${site.appStoreId}`} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>

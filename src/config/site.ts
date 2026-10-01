@@ -8,11 +8,15 @@
 export const site = {
   name: 'MyDiess',
   tagline: 'Su historia de amor, en un solo lugar.',
+  /** Título de la portada para buscadores (con las palabras que se buscan). */
+  seoTitle: 'App para parejas: recuerdos, notas de amor y aniversarios',
   description:
     'MyDiess es la app para parejas donde guardan sus recuerdos, días especiales, notas de amor y estados de ánimo, y dibujan juntos en tiempo real.',
   url: 'https://diess.site',
   /** Enlace público de la app en App Store. */
   appStoreUrl: 'https://apps.apple.com/us/app/mydiess/id6811741530',
+  appStoreId: '6811741530',
+  instagramUrl: 'https://www.instagram.com/mydiess.app/',
   /** PENDIENTE: correo real que se revise para soporte. */
   supportEmail: 'soporte@mydiess.app',
   /** PENDIENTE: correo para temas de privacidad (puede ser el mismo). */
