@@ -16,6 +16,8 @@ export const site = {
   /** Enlace público de la app en App Store. */
   appStoreUrl: 'https://apps.apple.com/us/app/mydiess/id6811741530',
   appStoreId: '6811741530',
+  /** Google Analytics 4: propiedad "MyDiess", flujo web "MyDiess web". */
+  gaMeasurementId: 'G-20H2KPTWGP',
   instagramUrl: 'https://www.instagram.com/mydiess.app/',
   /** PENDIENTE: correo real que se revise para soporte. */
   supportEmail: 'soporte@mydiess.app',

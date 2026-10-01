@@ -5,8 +5,10 @@ import { site } from '../config/site';
 interface Props {
   title: string;
   description: string;
+  /** Fecha de la última actualización de este documento (si no, la general). */
+  updatedAt?: string;
 }
-const { title, description } = Astro.props;
+const { title, description, updatedAt = site.legalUpdatedAt } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -14,7 +16,7 @@ const { title, description } = Astro.props;
     <header class="legal-header">
       <p class="eyebrow">{site.name}</p>
       <h1 class="headline-section">{title}</h1>
-      <p class="legal-updated">Última actualización: {site.legalUpdatedAt}</p>
+      <p class="legal-updated">Última actualización: {updatedAt}</p>
     </header>
     <div class="legal-body">
       <slot />

@@ -90,6 +90,35 @@ const structuredData = {
     <!-- Banner inteligente de App Store en Safari para iPhone. -->
     <meta name="apple-itunes-app" content={`app-id=${site.appStoreId}`} />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- Google Analytics 4. Sin señales de Google ni personalización de
+         anuncios (ver sección 5 de /privacidad). Solo en producción. -->
+    {import.meta.env.PROD && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId}`}></script>
+        <script is:inline define:vars={{ gaId: site.gaMeasurementId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', gaId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+          });
+          // Clic en cualquier botón de descarga → evento "app_store_click"
+          // con la sección de la página donde estaba el botón.
+          document.addEventListener('click', (e) => {
+            const link = e.target.closest && e.target.closest('a[href*="apps.apple.com"]');
+            if (!link) return;
+            const section = link.closest('header, section, footer');
+            gtag('event', 'app_store_click', {
+              link_location: (section && (section.id || section.className.split(' ')[0])) || 'page',
+              transport_type: 'beacon',
+            });
+          });
+        </script>
+      </>
+    )}
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
