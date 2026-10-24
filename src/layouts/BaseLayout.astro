@@ -8,8 +8,10 @@ interface Props {
   title?: string;
   description?: string;
   footnotes?: string[];
+  /** Páginas que no deben salir en buscadores (p. ej. /unirse). */
+  noindex?: boolean;
 }
-const { title, description = site.description, footnotes } = Astro.props;
+const { title, description = site.description, footnotes, noindex = false } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.seoTitle}`;
 // Con `build.format: 'file'` el pathname trae ".html"; la URL pública que
 // sirve Vercel (`cleanUrls`) no lo lleva, así que la canónica debe coincidir.
@@ -66,6 +68,7 @@ const structuredData = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#fafafc" />
 
     <link rel="icon" type="image/png" sizes="32x32" href="/brand/app-icon-32.png" />

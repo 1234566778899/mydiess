@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["JZ9Z9GWH7P.com.mydiess.app"],
+        "components": [
+          { "/": "/unirse/*", "comment": "Invitación de pareja: abre MyDiess y conecta con el código" }
+        ]
+      }
+    ]
+  }
+}

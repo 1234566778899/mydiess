@@ -1,0 +1,133 @@
+---
+// Invitación de pareja: la app comparte `https://diess.site/unirse/<CÓDIGO>`.
+// Con MyDiess instalada el enlace abre la app directo (Universal Link,
+// `public/.well-known/apple-app-site-association`) y esta página no se ve.
+// Sin la app: muestra el código, lo copia al tocar "Descargar" y lleva a la
+// App Store; en la app, "¿Listos para empezar juntos?" tiene un botón de pegar.
+// Vercel reescribe `/unirse/:code` → `/unirse` (vercel.json); el código se
+// lee del path en el navegador porque el sitio es estático.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+---
+
+<BaseLayout title="Tu pareja te invita" description="Únete a tu pareja en MyDiess, la app para parejas." noindex>
+  <section class="section center invite" id="unirse">
+    <div class="container invite-container">
+      <img src="/brand/mascot.webp" alt="" width="1000" height="590" class="invite-mascot" />
+      <h1 class="headline-section" data-en="Your partner invited you to MyDiess 💗">Tu pareja te invita a MyDiess 💗</h1>
+      <p class="lead" data-en="Your shared space for memories, love notes, the daily question and games for two.">Su espacio para guardar recuerdos, notas de amor, la pregunta del día y juegos para dos.</p>
+
+      <div class="code-card" hidden>
+        <p class="code-label" data-en="Your partner code">Su código de pareja</p>
+        <p class="code" id="invite-code"></p>
+        <button class="btn btn-ghost" type="button" id="copy-code" data-en="Copy code">Copiar código</button>
+      </div>
+
+      <div class="btn-group center">
+        <a class="btn btn-primary" id="download" href={site.appStoreUrl} data-en="Download MyDiess">Descargar MyDiess</a>
+        <a class="link-arrow" id="open-app" href="mydiess://unirse" hidden data-en="I already have MyDiess">Ya tengo MyDiess</a>
+      </div>
+
+      <ol class="steps">
+        <li data-en="Download MyDiess from the App Store.">Descarga MyDiess desde la App Store.</li>
+        <li data-en="Create your account.">Crea tu cuenta.</li>
+        <li data-en="When it asks for a partner code, tap paste: you'll be connected.">Cuando te pida un código de pareja, toca pegar: quedarán conectados.</li>
+      </ol>
+
+      <p class="footnote" data-en="Requires an iPhone with iOS 17 or later.">{site.requirements}</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const alphabet = /^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$/;
+  const raw = location.pathname.split('/').filter(Boolean)[1] ?? '';
+  const code = decodeURIComponent(raw).toUpperCase();
+  const valid = alphabet.test(code);
+
+  if (navigator.language?.toLowerCase().startsWith('en')) {
+    document.documentElement.lang = 'en';
+    document.querySelectorAll<HTMLElement>('[data-en]').forEach((el) => {
+      el.textContent = el.dataset.en ?? el.textContent;
+    });
+  }
+
+  async function copyCode() {
+    try {
+      await navigator.clipboard.writeText(code);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  if (valid) {
+    document.querySelector<HTMLElement>('.code-card')!.hidden = false;
+    document.getElementById('invite-code')!.textContent = code;
+
+    const copyButton = document.getElementById('copy-code')!;
+    const copyLabel = copyButton.textContent;
+    copyButton.addEventListener('click', async () => {
+      if (await copyCode()) {
+        copyButton.textContent = document.documentElement.lang === 'en' ? 'Copied ✓' : 'Copiado ✓';
+        setTimeout(() => (copyButton.textContent = copyLabel), 2000);
+      }
+    });
+
+    // Copia el código al ir a la App Store: al abrir la app, el botón de
+    // pegar de "¿Listos para empezar juntos?" ya lo tiene.
+    document.querySelectorAll('a[href*="apps.apple.com"]').forEach((link) =>
+      link.addEventListener('click', () => {
+        copyCode();
+      })
+    );
+
+    // Por si el Universal Link no abrió la app (p. ej. se abrió dentro de
+    // Instagram): esquema propio, que la app también entiende.
+    const openApp = document.getElementById('open-app') as HTMLAnchorElement;
+    openApp.href = `mydiess://unirse/${code}`;
+    openApp.hidden = false;
+  }
+</script>
+
+<style>
+  .invite-container {
+    max-width: 560px;
+  }
+  .invite-mascot {
+    width: min(220px, 55vw);
+    margin: 0 auto 24px;
+  }
+  .code-card {
+    margin: 32px auto 24px;
+    padding: 24px;
+    border-radius: var(--radius-card);
+    background: var(--pink-soft);
+  }
+  .code-label {
+    margin: 0;
+    font-size: 14px;
+    color: var(--ink-secondary);
+  }
+  .code {
+    margin: 4px 0 16px;
+    font-family: ui-rounded, var(--font-display);
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--pink);
+  }
+  .steps {
+    margin: 32px auto 0;
+    padding-left: 1.4em;
+    text-align: left;
+    max-width: 420px;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .footnote {
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--ink-tertiary);
+  }
+</style>
